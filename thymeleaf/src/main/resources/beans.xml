@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    bean : 스프링 프레임워크에서 사용자가 생성한 클래스를 자동으로 객체화하는 명령 -->
+<!--    class : 사용자가 생성한 클래스를 패키지명까지 모두 입력 -->
+<!--    id : 해당 클래스의 객체명 입력 -->
+    <bean id="dripCoffeeMachine" class="bitc.aws402.thymeleaf.DripCoffeeMachine" />
+    <bean id="espressoMachine" class="bitc.aws402.thymeleaf.EspressoMachine" />
+<!--    init-method : 해당 클래스를 통해서 생성된 객체에서 자동 실행할 메소드 설정 -->
+    <bean id="coffeeMaker" class="bitc.aws402.thymeleaf.CoffeeMaker" init-method="makeCoffee">
+<!--        기본참조를 espressoMachine 으로 지정함 -->
+        <property name="coffeeMachine" ref="dripCoffeeMachine" />
+    </bean>
+</beans>
