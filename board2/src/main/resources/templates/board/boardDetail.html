@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <style>
+  </style>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const btnList = document.querySelector('#btn-list');
+        btnList.addEventListener('click', function () {
+            // history.back();
+            location.href = '/board/boardList';
+        });
+
+        const btnDelete = document.querySelector('#btn-delete');
+        btnDelete.addEventListener('click', function () {
+            const frm = document.querySelector('#frm');
+            frm.action = '/board/deleteBoard';
+            frm.submit();
+        })
+
+
+        const btnUpdate = document.querySelector('#btn-update');
+        btnUpdate.addEventListener('click', function () {
+          const frm = document.querySelector('#frm');
+          frm.action = '/board/updateBoard';
+          frm.submit();
+        });
+    });
+  </script>
+</head>
+<body>
+
+<main class="container mt-5">
+  <section>
+    <form id="frm" action="/board/updateBoard" method="post">
+      <div class="row">
+        <div class="col-sm-2">
+          <label for="board-idx" class="form-label">글번호 :</label>
+          <input type="text" class="form-control" id="board-idx" name="boardIdx" th:value="${board.boardIdx}" readonly>
+        </div>
+        <div class="col-sm-8">
+          <label for="board-title" class="form-label">글제목 :</label>
+          <input type="text" class="form-control" id="board-title" name="boardTitle" th:value="${board.boardTitle}">
+        </div>
+        <div class="col-sm-2">
+          <label for="hit-cnt" class="form-label">조회수</label>
+          <input type="number" class="form-control" id="hit-cnt" name="boardHitCnt" th:value="${board.boardHitCnt}" readonly>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-3">
+          <label for="user-id" class="form-label">등록ID :</label>
+          <input type="text" class="form-control" id="user-id" name="boardCreateId" th:value="${board.boardCreateId}" readonly>
+        </div>
+        <div class="col-sm-3">
+          <label for="create-date" class="form-label">등록시간 :</label>
+          <input type="text" class="form-control" id="create-date" name="boardCreateDate" th:value="${board.boardCreateDate}" readonly>
+        </div>
+        <div class="col-sm-3">
+          <label for="update-id" class="form-label">수정ID :</label>
+          <input type="text" class="form-control" id="update-id" name="boardUpdateId" th:value="${board.boardUpdateId}">
+        </div>
+        <div class="col-sm-3">
+          <label for="update-date" class="form-label">수정시간 :</label>
+          <input type="text" class="form-control" id="update-date" name="boardUpdateDate" th:value="${board.boardUpdateDate}">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <label for="board-contents" class="form-label">내용 :</label>
+          <textarea class="form-control" id="board-contents" name="boardContents" rows="10" th:text="${board.boardContents}"></textarea>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-6">
+          <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
+        </div>
+        <div class="col-sm-6 d-flex justify-content-end">
+          <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>
+          <button type="button" class="btn btn-warning" id="btn-update">수정</button>
+        </div>
+      </div>
+    </form>
+  </section>
+</main>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
