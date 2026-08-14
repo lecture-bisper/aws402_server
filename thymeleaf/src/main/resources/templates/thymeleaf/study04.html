@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,9 +44,191 @@
       </div>
     </div>
   </div>
+
+  <br><hr><br>
+
+  <div>
+    <h4>if, unless 사용하기</h4>
+<!--    thymeleaf 문법에는 if ~ else 문이 없음, if, unless 를 사용하여 if ~ else 문을 흉내냄 -->
+<!--    if : 자바 혹은 자바스크립트의 단순 if 문과 동일한 형태로 사용 -->
+<!--    if 문의 조건식 결과가 true 일 경우 자식 태그의 내용을 출력하는 형태 -->
+
+<!--    unless : if 문과 동일한 형태로 사용하는 thymeleaf 문법 -->
+<!--    unless 는 if 문과 달리 조건식의 결과가 false 일 경우 자식 태그의 내용을 출력하는 형태 -->
+
+<!--    if 문과 unless 문에 동일한 조건식을 사용하고, 연속적으로 사용 시 자바 혹은 자바스크립트의 if ~ else 문을 구현할 수 있음 -->
+
+    <div>
+      <div th:if="${num} > 5">
+        <p>if 문의 조건식 결과가 true 일 경우 출력 1</p>
+      </div>
+      <div th:unless="${num} > 5">
+        <p>unless 문의 조건식 결과가 true 일 경우 미출력 1</p>
+      </div>
+      <div th:if="${num} < 5">
+        <p>if 문의 조건식 결과가 false 일 경우 미출력 2</p>
+      </div>
+      <div th:unless="${num} < 5">
+        <p>unless 문의 조건식 결과가 false 일 경우 출력 2</p>
+      </div>
+    </div>
+  </div>
+
+  <br><hr><br>
+
+  <div>
+    <h4>switch ~ case 문 사용하기</h4>
+<!--    자바 및 자바스크립트의 switch ~ case 문을 구현할 수 있음 -->
+<!--    부모 태그에 th:switch=${변수명} 을 사용하고, 자식 태그에 th:case 값을 설정하여 사용함 -->
+<!--    자식 태그 중 해당 값과 일치하는 태그의 내용을 출력 -->
+<!--    지정한 모든 case 와 일치하는 것이 없을 경우 default 로 사용하는 th:case="*" 을 실행함 -->
+
+    <div>
+      <div th:switch="${grade}">
+        <p th:case="'A'">성적이 A 등급입니다.</p>
+        <p th:case="'B'">성적이 B 등급입니다.</p>
+        <p th:case="'C'">성적이 C 등급입니다.</p>
+        <p th:case="'D'">성적이 D 등급입니다.</p>
+        <p th:case="*">성적이 F 등급입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <br><hr><br>
+
+  <div>
+    <h3>반복문 사용하기</h3>
+<!--    thymeleaf 에서 반복 실행을 위한 th:each 를 제공하고 있음 -->
+<!--    자바의 향상된 for 문과 사용법이 비슷함 -->
+<!--    부모 태그에 th:each="변수명 : ${배열 및 리스트명}" 형태로 사용 -->
+<!--    자식 태그에서 ${변수명} 으로 사용함 -->
+
+<!--    th:each 는 반복 상태 변수를 제공 -->
+<!--    1. '변수명Stat.상태변수' 형식으로 사용 -->
+<!--    2. 변수명 설정 시 상태 변수도 함께 설정하여 사용 -->
+<!--    index : 현재 반복 중인 index의 값 출력 (0부터 시작) -->
+<!--    count : 현재 반복 중인 반복수를 출력 (1부터 시작) -->
+<!--    size : 총 요소 수 -->
+<!--    current : 현재 요소의 값 출력 -->
+<!--    even : 현재 반복이 짝수 번째인지 여부 확인 -->
+<!--    odd : 현재 반복이 홀수 번째인지 여부 확인 -->
+<!--    first : 현재 반복이 첫번째인지 여부 확인 -->
+<!--    last : 현재 반복이 마지막인지 여부 확인 -->
+
+    <div>
+      <h4>배열을 th:each 로 출력</h4>
+
+      <div class="mt-3" th:each="item : ${itemArray}">
+        <p th:text="${item}">기본 문자열</p>
+      </div>
+
+      <br><br>
+
+      <h4>ArrayList 를 th:each 로 출력</h4>
+
+      <div class="mt-3" th:each="item : ${itemList}">
+        <p th:text="${item}">기본 문자열</p>
+      </div>
+
+      <br><br>
+
+      <h4>List의 요소가 객체일 경우</h4>
+
+      <div class="mt-3" th:each="item : ${memberList}">
+        <p th:text="${item.id}"></p>
+        <p th:text="${item.name}"></p>
+        <p th:text="${item.pass}"></p>
+        <p th:text="${item.regiDate}"></p>
+      </div>
+
+      <br><br>
+
+      <h4>List의 요소가 객체일 때 선택 변수(*{})로 출력</h4>
+
+      <div class="mt-3" th:each="item : ${memberList}" th:object="${item}">
+        <p th:text="*{id}"></p>
+        <p th:text="*{name}"></p>
+        <p th:text="*{pass}"></p>
+        <p th:text="*{regiDate}"></p>
+      </div>
+
+      <br><br>
+
+      <h4>th:if 와 th:each 를 함께 사용</h4>
+<!--      th:if 문과 th:each 를 사용하여 배열 혹은 리스트가 비었는지 여부를 확인 후 사용 -->
+<!--      #lists 는 thymeleaf 에서 제공하는 리스트 내장 객체 -->
+      <div class="mt-3" th:if="${#lists.size(itemList) > 0}" th:each="item : ${itemList}">
+        <p th:text="${item}"></p>
+      </div>
+
+      <br>
+
+<!--      #arrays 는 thymeleaf 에서 제공하는 배열 내장 객체-->
+      <div class="mt-3" th:if="${#arrays.length(itemArray) > 0}" th:each="item : ${itemArray}">
+        <p th:text="${item}"></p>
+      </div>
+    </div>
+
+    <br><hr><br>
+
+    <div>
+      <h3>th:each 의 상태 변수 사용하기</h3>
+
+      <div>
+        <h4>상태 변수 사용법 1</h4>
+<!--        th:each 사용 시 배열 혹은 리스트의 요소를 저장하는 '변수명 + Stat' 를 사용하면 상태 변수로 인식함 -->
+
+        <div class="mt-3" th:each="item : ${memberList}">
+          <p>index : <span th:text="${itemStat.index}"></span>, value : <span th:text="${item.name}"></span></p>
+        </div>
+      </div>
+
+      <br><br>
+
+      <div>
+        <h4>상태 변수 사용법 2</h4>
+<!--        th:each 사용 시 배열 혹은 리스트의 요소를 저장하는 변수명 뒤에 '변수명Stat' 형태의 변수를 추가로 선언하여 사용-->
+
+        <div class="mt-3" th:each="item, itemStat : ${memberList}">
+          <p>index : <span th:text="${itemStat.index}"></span>, value : <span th:text="${item.name}"></span></p>
+        </div>
+      </div>
+
+      <br><br>
+
+      <h4>리스트에서 상태변수 사용하기 </h4>
+
+      <div class="mt-3" th:each="item : ${itemList}">
+        <p>index : <span th:text="${itemStat.index}"></span></p>
+        <p>count : <span th:text="${itemStat.count}"></span></p>
+        <p>current : <span th:text="${itemStat.current}"></span></p>
+        <p>size : <span th:text="${itemStat.size}"></span></p>
+        <p>even : <span th:text="${itemStat.even}"></span></p>
+        <p>odd : <span th:text="${itemStat.odd}"></span></p>
+        <p>first : <span th:text="${itemStat.first}"></span></p>
+        <p>last : <span th:text="${itemStat.last}"></span></p>
+        <hr>
+      </div>
+
+      <br><br>
+
+      <h4>배열에서 상태변수 사용하기 </h4>
+      <div class="mt-3" th:each="item, itemStat : ${itemArray}">
+        <p>index : <span th:text="${itemStat.index}"></span></p>
+        <p>count : <span th:text="${itemStat.count}"></span></p>
+        <p>current : <span th:text="${itemStat.current}"></span></p>
+        <p>size : <span th:text="${itemStat.size}"></span></p>
+        <p>even : <span th:text="${itemStat.even}"></span></p>
+        <p>odd : <span th:text="${itemStat.odd}"></span></p>
+        <p>first : <span th:text="${itemStat.first}"></span></p>
+        <p>last : <span th:text="${itemStat.last}"></span></p>
+        hr
+      </div>
+    </div>
+  </div>
 </div>
 
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
 

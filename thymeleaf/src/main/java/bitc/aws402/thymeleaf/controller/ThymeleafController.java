@@ -109,7 +109,7 @@ public class ThymeleafController {
     return mav;
   }
 
-  @RequestMapping("thymeleaf/study04")
+  @RequestMapping("/thymeleaf/study04")
   public ModelAndView study04() {
     ModelAndView mav = new ModelAndView("thymeleaf/study04");
 
@@ -117,7 +117,7 @@ public class ThymeleafController {
 
     mav.addObject("nullData", null);
 
-    mav.addObject("grade", "aldkfjalkjfd");
+    mav.addObject("grade", "C");
 
     String[] strArray = {"첫번째", "두번째", "세번째", "네번째", "다섯번째"};
     List<String> strList = Arrays.asList(strArray);
@@ -153,8 +153,26 @@ public class ThymeleafController {
     return mav;
   }
 
+//  반환 타입을 String 으로 설정하여 실제로 반환하는 데이터를 View 파일의 경로로 설정
+//  매개변수로 Model 인터페이스를 받아서 View 파일에 전달할 데이터를 저장
+//  ModelAndView 를 사용하는 것과 동일한 방식
+  @RequestMapping("/thymeleaf/study05")
+  public String study05(Model model) {
 
+//    addAttribute() : ModelAndView 클래스의 객체에 데이터를 저장하는 addObject() 와 동일한 역할을 하는 메소드
+    model.addAttribute("checkedVal", true);
+    model.addAttribute("multipleVal", true);
+    model.addAttribute("selectedVal", true);
+    model.addAttribute("disabledVal", true);
+    model.addAttribute("readonlyVal", true);
 
+    return "thymeleaf/study05";
+  }
+
+  @RequestMapping("/thymeleaf/study06")
+  public String study06() {
+    return "thymeleaf/study06";
+  }
 }
 
 
