@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitc.aws402.board3.mapper.MemberMapper">
+
+<!--    기존 회원 존재 여부 확인 -->
+    <select id="isSignup" parameterType="String" resultType="int">
+        SELECT COUNT(*) AS cnt
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+
+<!--    회원 가입 -->
+    <insert id="insertMember" parameterType="MemberDTO">
+        INSERT INTO member (member_id, member_pw, member_name, member_email, member_phone, member_addr)
+        VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberAddress})
+    </insert>
+
+<!--    parameterType 에 전달되는 데이터가 1개이면 해당 데이터 타입 입력 -->
+<!--    parameterType 에 전달되는 데이터가 2개면 map 으로 설정 -->
+<!--    parameterType 에 전달되는 데이터가 3개 이상이면 DTO 클래스 생성 후 해당 DTO 타입 사용 -->
+<!--    로그인 확인 -->
+    <select id="isLogin" parameterType="map" resultType="int">
+        SELECT COUNT(*) AS cnt FROM member
+        WHERE member_id = #{memberId} AND member_pw = #{memberPw}
+    </select>
+
+<!--    회원 정보 조회 -->
+    <select id="selectMember" parameterType="String" resultType="MemberDTO">
+        SELECT member_id, member_name, member_email, member_phone, member_addr
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+</mapper>
