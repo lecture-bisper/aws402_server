@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <style>
+  </style>
+
+  <script>
+  </script>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1 class="text-center">로그인 성공 페이지</h1>
+  <hr>
+  <div>
+<!--    thymeleaf 에서 제공하는 session 객체를 사용하여 session 사용 여부 확인 -->
+    <h3 th:if="${session.userName != null}">
+      <span th:text="|${session.userName}(${session.userId})|"></span>님 반갑습니다.
+    </h3>
+    <h3 th:unless="${session.userName != null}">
+      로그인 후 접속해주세요
+    </h3>
+    <br>
+    <a href="/main" class="btn btn-link" th:href="@{/main}">기본 페이지로 이동</a>
+    <a href="/logout" class="btn btn-link" th:href="@{/logout}">로그 아웃 페이지로 이동</a>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
