@@ -41,8 +41,10 @@
         AND deleted_yn = 'N'
     </select>
 
+<!--    useGeneratedKeys : 데이터베이스 등록에 의해서 생성되는 key값 사용 유무 설정, 생성되는 키값을 되돌려 줌 -->
+<!--    keyProperty : useGeneratedKeys 속성 true 사용 시 생성된 key 값을 돌려받을 컬럼 설정, DTO 타입의 필드명으로 설정 -->
 <!--    게시물 등록-->
-    <insert id="insertBoard" parameterType="BoardDTO">
+    <insert id="insertBoard" parameterType="BoardDTO" useGeneratedKeys="true" keyProperty="boardIdx">
         INSERT INTO t_board (board_title, board_contents, board_create_id, board_create_date)
         VALUES (#{boardTitle}, #{boardContents}, #{boardCreateId}, NOW())
     </insert>
@@ -58,6 +60,13 @@
     <update id="deleteBoard" parameterType="int">
         UPDATE t_board
         SET deleted_yn = 'Y'
+        WHERE board_idx = #{boardIdx}
+    </update>
+
+<!--    게시글 조회수 증가 -->
+    <update id="updateBoardHitCnt" parameterType="int">
+        UPDATE t_board
+        SET board_hit_cnt = board_hit_cnt + 1
         WHERE board_idx = #{boardIdx}
     </update>
 
