@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--     namespace 를 mapper 파일과 연결-->
+<mapper namespace="bitc.aws402.phonebook.mapper.PhoneBookMapper">
+
+<!--    mapper 파일의 메소드와 sql 쿼리문 연동 -->
+<!--    전화번호 목록 -->
+    <select id="selectPhoneBookList" resultType="bitc.aws402.phonebook.dto.PhoneBookDTO">
+        SELECT seq, name, phone, email
+        FROM t_phonebook
+        ORDER BY seq DESC
+    </select>
+
+<!--    전화번호 등록 -->
+    <insert id="insertPhoneBook" parameterType="bitc.aws402.phonebook.dto.PhoneBookDTO">
+        INSERT INTO t_phonebook (name, phone, tel, email, address, memo)
+        VALUES (#{name}, #{phone}, #{tel}, #{email}, #{address}, #{memo})
+    </insert>
+
+<!--    전화번호 상세 -->
+    <select id="selectPhoneBookDetail" parameterType="int" resultType="bitc.aws402.phonebook.dto.PhoneBookDTO">
+        SELECT seq, name, phone, tel, email, address, memo
+        FROM t_phonebook
+        WHERE seq = #{seq}
+    </select>
+
+<!--    전화번호 수정 -->
+    <update id="updatePhoneBook" parameterType="bitc.aws402.phonebook.dto.PhoneBookDTO">
+        UPDATE t_phonebook
+        SET name = #{name}, phone = #{phone}, tel = #{tel}, email = #{email}, address = #{address}, memo = #{memo}
+        WHERE seq = #{seq}
+    </update>
+
+<!--    전화번호 삭제 -->
+    <delete id="deletePhoneBook" parameterType="int">
+        DELETE FROM t_phonebook
+        WHERE seq = #{seq}
+    </delete>
+</mapper>
