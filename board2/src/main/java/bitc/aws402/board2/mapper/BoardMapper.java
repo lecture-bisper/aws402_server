@@ -34,6 +34,9 @@ public interface BoardMapper {
 
 //  게시글 삭제
   void deleteBoard(@Param("boardIdx") int boardIdx);
+
+//  게시글 조회수 증가
+  void updateBoardHitCnt(@Param("boardIdx") int boardIdx);
 }
 
 
