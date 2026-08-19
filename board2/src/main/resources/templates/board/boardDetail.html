@@ -82,6 +82,14 @@
           <textarea class="form-control" id="board-contents" name="boardContents" rows="10" th:text="${board.boardContents}"></textarea>
         </div>
       </div>
+      <div class="row mt-2" th:if="${#lists.size(fileList) > 0}">
+        <div class="col-sm">
+          <label class="form-label">첨부파일 : </label>
+          <ul class="list-group">
+            <a href="#" class="list-group-item list-group-item-action" th:each="item : ${fileList}" th:href="@{/board/download(fileIdx=${item.fileIdx})}" th:text="${item.originalFileName}">첨부파일</a>
+          </ul>
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="col-sm-6">
           <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
