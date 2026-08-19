@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전화번호 상세</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <style>
+    .mt-6 {
+        margin-top: 5em;
+    }
+  </style>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const btnList = document.querySelector("#btn-list");
+        btnList.addEventListener('click', function () {
+            history.back();
+        });
+
+        const btnEdit = document.querySelector("#btn-edit");
+        btnEdit.addEventListener('click', function () {
+            const frm = document.querySelector("#frm");
+            frm.action = '/phonebook/update';
+            frm.method = 'post';
+            frm.submit();
+        });
+
+        const btnDelete = document.querySelector("#btn-delete");
+        btnDelete.addEventListener('click', function () {
+          const frm = document.querySelector("#frm");
+          // 게시물 번호인 seq 를 input type=hidden 으로 설정했기 때문에 주소 뒤에 추가하지 않아도 됨
+          frm.action = '/phonebook/delete';
+          frm.method = 'GET';
+          frm.submit();
+        });
+    });
+  </script>
+</head>
+<body>
+
+<header>
+  <nav th:replace="~{/layout/header :: navigator}"></nav>
+  <div th:replace="~{/layout/header :: jumbotron('상세')}"></div>
+</header>
+
+<main class="container mt-5">
+  <section>
+    <div class="row">
+      <div class="col-sm-6 mx-auto">
+        <form id="frm" method="post">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" th:value="${phoneBook.name}">
+            <label for="name">Name</label>
+          </div>
+          <div class="form-floating mt-3">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" th:value="${phoneBook.phone}">
+            <label for="phone">Phone Number</label>
+          </div>
+          <div class="form-floating mt-3">
+            <input type="text" class="form-control" id="tel" name="tel" placeholder="Tel Number" th:value="${phoneBook.tel}">
+            <label for="tel">Tel Number</label>
+          </div>
+          <div class="form-floating mt-3">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Email" th:value="${phoneBook.email}">
+            <label for="email">Email</label>
+          </div>
+          <div class="form-floating mt-3">
+            <input type="text" class="form-control" id="address" name="address" placeholder="Address" th:value="${phoneBook.address}">
+            <label for="address">Address</label>
+          </div>
+          <div class="form-floating mt-3">
+            <textarea class="form-control" id="memo" name="memo" rows="5" placeholder="Memo" style="height: 8em" th:text="${phoneBook.memo}"></textarea>
+            <label for="memo">Memo</label>
+          </div>
+          <div class="mt-3 row">
+            <div class="col-sm">
+              <button type="button" class="btn btn-outline-secondary" id="btn-list">목록</button>
+            </div>
+            <div class="col-sm d-flex justify-content-end">
+              <input type="hidden" id="seq" name="seq" th:value="${phoneBook.seq}">
+              <button type="button" class="btn btn-outline-danger me-2" id="btn-delete">삭제</button>
+              <button type="button" class="btn btn-outline-warning" id="btn-edit">수정</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer th:replace="~{/layout/footer :: footer}"></footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

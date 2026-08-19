@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전화번호 목록</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <style>
+    .mt-6 {
+        margin-top: 5em;
+    }
+  </style>
+
+  <script>
+  </script>
+</head>
+<body>
+
+<header>
+  <nav th:replace="~{/layout/header :: navigator}"></nav>
+
+  <div th:replace="~{/layout/header :: jumbotron('목록')}"></div>
+</header>
+
+<main class="container mt-5">
+  <section>
+    <div class="row">
+      <div class="col-sm">
+        <table class="table table-hover table-striped text-center">
+          <colgroup>
+            <col style="width: 10%;">
+            <col style="width: 20%;">
+            <col style="width: 30%;">
+            <col style="width: 40%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>이름</th>
+              <th>전화번호</th>
+              <th>이메일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${#lists.size(phoneBookList) > 0}" th:each="item : ${phoneBookList}">
+              <td th:text="${item.seq}">1</td>
+              <td>
+                <a href="/phonebook/detail" th:href="@{/phonebook/detail(seq=${item.seq})}" th:text="${item.name}" class="text-decoration-none">아이유</a>
+              </td>
+              <td th:text="${item.phone}" class="text-start">01012345678</td>
+              <td th:text="${item.email}" class="text-start">iu@bitc.ac.kr</td>
+            </tr>
+            <tr class="text-center" th:unless="${#lists.size(phoneBookList) > 0}">
+              <td colspan="4">등록된 전화번호가 없습니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm d-flex justify-content-end">
+        <a href="/phonebook/write" class="btn btn-primary">등록</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer th:replace="~{/layout/footer :: footer}"></footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
