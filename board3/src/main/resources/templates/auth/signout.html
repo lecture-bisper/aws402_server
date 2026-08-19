@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="3; url=http://localhost:8080/board/list">
+  <title>회원제 게시판</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/css/myStyle.css" th:href="@{/css/myStyle.css}">
+
+  <style>
+  </style>
+
+  <script>
+  </script>
+</head>
+<body>
+
+<header>
+  <nav th:replace="~{/layout/header :: navigator}"></nav>
+  <div th:replace="~{/layout/header :: jumbotron('로그아웃')}"></div>
+</header>
+
+<main class="container mt-5">
+  <h3 class="text-center">로그아웃 되었습니다.</h3>
+  <p class="text-center">3초 후 목록 페이지로 이동합니다.</p>
+</main>
+
+<footer th:replace="~{/layout/footer :: footer}"></footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
