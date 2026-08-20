@@ -27,6 +27,50 @@
 </header>
 
 <main class="container mt-5">
+  <section>
+    <div class="row">
+      <div class="col-sm">
+        <table class="table table-hover table-striped text-center">
+          <colgroup>
+            <col style="width: 10%" />
+            <col style="width: 45%" />
+            <col style="width: 10%" />
+            <col style="width: 15%" />
+            <col style="width: 5%" />
+            <col style="width: 5%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>글번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>등록시간</th>
+              <th>조회수</th>
+              <th>추천수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${#lists.size(boardList) > 0}" th:each="board : ${boardList}">
+              <td th:text="${board.boardIdx}">1</td>
+              <td class="text-start">
+                <a href="/board/detail" class="text-decoration-none" th:href="@{/board/detail(boardIdx=${board.boardIdx})}" th:text="${board.title}">제목</a>
+              </td>
+              <td th:text="${board.createId}">작성자</td>
+              <td th:text="${board.createDate}">등록시간</td>
+              <td th:text="${board.hitCnt}">조회수</td>
+              <td th:text="${board.likes}">추천수</td>
+            </tr>
+            <tr th:unless="${#lists.size(boardList) > 0}">
+              <td colspan="6">조회된 내용이 없습니다.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mt-3 d-flex justify-content-end">
+          <a href="/board/write" class="btn btn-primary" th:href="@{/board/write}">글쓰기</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer th:replace="~{/layout/footer :: footer}"></footer>
