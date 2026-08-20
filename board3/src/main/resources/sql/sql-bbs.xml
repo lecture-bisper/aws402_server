@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitc.aws402.board3.mapper.BoardMapper">
+
+    <select id="selectBoardList" resultType="BoardDTO">
+        SELECT board_idx, title, create_id, create_date, hit_cnt, likes
+        FROM bbs
+        ORDER BY board_idx DESC
+    </select>
+
+    <update id="updateHitCnt" parameterType="int">
+        UPDATE bbs
+        SET hit_cnt = hit_cnt + 1
+        WHERE board_idx = #{boardIdx}
+    </update>
+
+    <select id="selectBoardDetail" parameterType="int" resultType="BoardDTO">
+        SELECT board_idx, title, contents, create_id, create_date, update_id, update_date, hit_cnt, likes
+        FROM bbs
+        WHERE board_idx = #{boardIdx}
+    </select>
+
+    <insert id="insertBoard" parameterType="BoardDTO">
+        INSERT INTO bbs (title, contents, create_id, create_date)
+        VALUES (#{title}, #{contents}, #{createId}, NOW())
+    </insert>
+
+    <update id="updateBoard" parameterType="BoardDTO">
+        UPDATE bbs
+        SET title = #{title}, contents = #{contents}, update_id = #{updateId}, update_date = NOW()
+        WHERE board_idx = #{boardIdx}
+    </update>
+
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM bbs
+        WHERE board_idx = #{boardIdx}
+    </delete>
+</mapper>
