@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/css/myStyle.css" th:href="@{/css/myStyle.css}">
+
+  <style>
+  </style>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        const btnList = document.querySelector('#btn-list');
+        btnList.addEventListener('click', function() {
+            history.back();
+        });
+
+        const btnEdit = document.querySelector('#btn-edit');
+        btnEdit.addEventListener('click', function() {
+            const boardIdx = document.querySelector('#board-idx');
+            const method = document.querySelector('#method');
+            method.value = "PUT";
+
+            const frm = document.querySelector('#frm');
+            frm.action = '/board/' + boardIdx.value;
+            frm.submit();
+        });
+
+        const btnDelete = document.querySelector('#btn-delete');
+        btnDelete.addEventListener('click', function() {
+            const boardIdx = document.querySelector('#board-idx');
+            const method = document.querySelector('#method');
+            method.value = "DELETE";
+
+            const frm = document.querySelector('#frm');
+            frm.action = '/board/' + boardIdx.value;
+            frm.submit();
+        });
+
+    });
+  </script>
+</head>
+<body>
+
+
+<header>
+  <nav th:replace="~{/layout/header :: navigator}"></nav>
+  <div th:replace="~{/layout/header :: jumbotron('상세')}"></div>
+</header>
+
+<main class="container mt-5">
+  <section>
+    <div class="row">
+      <div class="col">
+        <form id="frm" method="post">
+          <input type="hidden" id="method" name="_method">
+          <div>
+            <div class="row">
+              <div class="col-sm-2">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="board-idx" name="boardIdx" placeholder="Number" readonly th:value="${board.boardIdx}">
+                  <label for="board-idx">Number</label>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="title" name="boardTitle" placeholder="Title" th:value="${board.boardTitle}">
+                  <label for="title">Title</label>
+                </div>
+              </div>
+              <div class="col-sm-1">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="hit-cnt" name="boardHitCnt" placeholder="Hit" readonly th:value="${board.boardHitCnt}">
+                  <label for="hit-cnt">Hit</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="create-id" name="boardCreateId" placeholder="Create ID" readonly th:value="${board.boardCreateId}">
+                  <label for="create-id">Create ID</label>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="create-date" name="boardCreateDate" placeholder="Create Date" readonly th:value="${board.boardCreateDate}">
+                  <label for="create-date">Create Date</label>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="update-id" name="boardUpdateId" placeholder="Update ID" th:value="${board.boardUpdateId}">
+                  <label for="update-id">Update ID</label>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="update-date" name="boardUpdateDate" placeholder="Update Date" th:value="${board.boardUpdateDate}">
+                  <label for="update-date">Update Date</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm">
+                <div class="form-floating">
+                  <textarea class="form-control" id="contents" name="boardContents" rows="10" placeholder="Contents" th:text="${board.boardContents}"></textarea>
+                  <label for="contents">Contents</label>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 clear-fix">
+              <button type="button" class="btn btn-secondary float-start" id="btn-list">목록</button>
+              <button type="button" class="btn btn-warning float-end" id="btn-edit">수정</button>
+              <button type="button" class="btn btn-danger float-end me-2" id="btn-delete">삭제</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer th:replace="~{/layout/footer :: footer}"></footer>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
